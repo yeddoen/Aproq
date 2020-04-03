@@ -1,11 +1,11 @@
 @CHARSET "UTF-8"
 @font-face{
         font-family: '나눔고딕';
-        src: url(font/NanumGothic.ttf) format('truetype');
+        src: url(./font/NanumGothic.ttf) format('truetype');
 }
 @font-face{
         font-family: '나눔스퀘어라운드 ExtraBold';
-        src: url(font/NanumSquareRoundEB.ttf) format('truetype');
+        src: url(./font/NanumSquareRoundEB.ttf) format('truetype');
 }
      .bg-main{
          background-color:#003366;}
