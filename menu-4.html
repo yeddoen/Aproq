@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title> 대기질 예측 - 텐서플로우를 활용한</title>
+    <!-- css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/madecss.css" rel="stylesheet">
+    <!-- weathericon -->
+    <link type="text/css" rel="stylesheet" href="./css/weather-icons.min.css">
+ </head>
+  <body>
+    <header class="hero-wrap text-center mb-0 bg-hd text-dark" style="background-image: url(./file/cloudback1.gif);" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+        <div class="container">
+          <div class="dre row description align-items-center justify-content-center">
+            </div>
+          </div>
+    </header>
+    <nav class="navbar navbar-expand-sm fixed-top navbar-light navbar-right bg-white bg-hd">
+      <span id="dpTime"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item navmy">
+            <a class="nav-link" href="./index.html"> HOME </a>
+          </li>
+          <li class="nav-item navmy">
+            <a class="nav-link" href="./menu-2.html"> 실시간 정보 </a>
+          </li>
+          <li class="nav-item navmy">
+            <a class="nav-link" href="./menu-3.html"> 예측 정보 </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./menu-4.html"> About <span class="sr-only">(current)</span> </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section>
+      <article>
+        <a href="#" class="top">︽</a>
+      </article>
+      <article class="container pt-1">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <h4 class="card-title"> 자료 제공 </h4><br/>
+                 <img src="./file/에어코리아.jpg" align="bottom" width="50" height="25"><small> 에어코리아 </small><br/>
+                 <img src="./file/기상청.jpg"align="bottom" width="50" height="50"><small>기상청</small><br/>
+                 <img src="./file/openweathe.png" align="bottom" width="50" height="25"><small>OpenWeatherMap</small><br/>
+              </div>
+            </div>
+            <!-- <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <h4 class="card-title"> </h4>
+                <p class="card-text">
+
+                </p>
+              </div>
+            </div> -->
+          </div>
+          <div class="col-sm-9 text-center">
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4></h4></div>
+
+                </div>
+                <hr/>
+                <div class="card-body">
+                    <h4 class="card-title"></h4>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="card text-white bg-dark mb-3" style="max-width: 100rem;">
+              <div class="card-header">대기질</div>
+              <div class="card-body">
+                <h4 class="card-title"></h4>
+                <p class="card-text"></p>
+              </div>
+            </div> -->
+          </p>
+          </div>
+        </div>
+      </article>
+    </section>
+    <footer>
+      <div class="jumbotron text-center mt-5 mb-0 bg-main">
+        <p><small>20.4.1) 텐서플로우를 활용한 대기질 예측 정보제공 사이트.<br/>※실시간 관측자료는 측정소 현지 사정이나 데이터 수신에 따라 미제공될 수 있습니다.<br/>by <span class="text-info">이상찬,차민규,이도연,정윤진</span></small></p>
+      </div>
+    </footer>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/weather.js" type="text/javascript"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="plugins/common/common.min.js"></script>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/e0de2813f8.js" crossorigin="anonymous"></script>
+    <!-- sparkline.js -->
+    <script src="plugins/jquery.sparkline/jquery.sparkline.min.js"></script>
+    <!-- chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
+    <!--  flot-chart js -->
+    <script src="plugins/flot/js/jquery.flot.min.js"></script>
+    <script src="plugins/flot/js/jquery.flot.pie.js"></script>
+    <script src="plugins/flot/js/jquery.flot.resize.js"></script>
+    <script src="plugins/flot/js/jquery.flot.spline.js"></script>
+    <script src="plugins/flot/js/jquery.flot.init.js"></script>
+    <!-- javascript -->
+    <script src="js/madejs.js"></script>
+    <script type="text/javascript">
+
+    </script>
+  </body>
+</html>

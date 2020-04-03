@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title> 대기질 예측 - 텐서플로우를 활용한</title>
+    <!-- css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.css">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="./css/madecss.css" rel="stylesheet">
+    <!-- weathericon -->
+    <link type="text/css" rel="stylesheet" href="./css/weather-icons.min.css">
+ </head>
+  <body>
+    <header class="hero-wrap text-center mb-0 bg-hd text-dark" style="background-image: url(./file/cloudback1.gif);" data-stellar-background-ratio="0.5">
+      <div class="overlay"></div>
+        <div class="container">
+          <div class="dre row description align-items-center justify-content-center">
+            </div>
+          </div>
+    </header>
+    <nav class="navbar navbar-expand-sm fixed-top navbar-light navbar-right bg-white bg-hd">
+      <span id="dpTime"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item navmy">
+            <a class="nav-link" href="./index.html"> HOME </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./menu-2.html"> 실시간 정보 <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item navmy">
+            <a class="nav-link" href="./menu-3.html"> 예측 정보</a>
+          </li>
+          <li class="nav-item navmy">
+            <a class="nav-link" href="./menu-4.html"> About </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <section>
+      <article>
+        <a href="#" class="top">︽</a>
+      </article>
+      <article class="container pt-1">
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <h4 class="card-title">날씨</h4>
+                <p class="card-text"> ((기온/날씨아이콘/통합대기환경 등급))</p>
+              </div>
+            </div>
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <h4 class="card-title"> </h4>
+                <p class="card-text"> ((바람/습도/강수량 수치만))</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-9 text-center">
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <h4>(map 전국 측정소 kakao map api)</h4><br/>
+                <div id="map" style="width:750px;height:600px;"></div>
+                <p></p>
+                <!-- <div class="card-body">
+                    <h4 class="card-title"> 실시간 차트(예상)</h4>
+                    <div id="flotRealtime2" class="flot-chart" width="100" height="10"></div>
+                </div> -->
+              </div>
+            </div>
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                  <h4 class="card-title">(map클릭시)00측정소 세부 정보</h4>
+                  <p>table(일시/아황산가스 농도/일산화탄소/오존/이산화질소/미세먼지/초미세먼지/통합대기환경 수치)</p>
+                  <p class="card-text">측정 종류:SO₂ CO O₃ NO₂ PM10 PM2.5 </p>
+                  <div class="table-responsive">
+                      <table class="table header-border table-striped">
+                          <thead>
+                              <tr>
+                                  <th scope="col">측정 일시</th>
+                                  <th scope="col">아황산가스</th>
+                                  <th scope="col">일산화탄소</th>
+                                  <th scope="col">오존</th>
+                                  <th scope="col">이산화질소</th>
+                                  <th scope="col">pm10</th>
+                                  <th scope="col">pm2.5</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>2020-04-02 21:00</td>
+                                  <td>0.004</td>
+                                  <td>0.5</td>
+                                  <td>0.046</td>
+                                  <td>0.022</td>
+                                  <td>52</td>
+                                  <td>23</td>
+                              </tr>
+                              <tr>
+                                  <td>2020-04-02 20:00</td>
+                                  <td>0.004</td>
+                                  <td>0.5</td>
+                                  <td>0.046</td>
+                                  <td>0.022</td>
+                                  <td>52</td>
+                                  <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>2020-04-02 19:00</td>
+                                <td>0.004</td>
+                                <td>0.5</td>
+                                <td>0.046</td>
+                                <td>0.022</td>
+                                <td>52</td>
+                                <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>2020-04-02 21:00</td>
+                                <td>0.004</td>
+                                <td>0.5</td>
+                                <td>0.046</td>
+                                <td>0.022</td>
+                                <td>52</td>
+                                <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>2020-04-02 21:00</td>
+                                <td>0.004</td>
+                                <td>0.5</td>
+                                <td>0.046</td>
+                                <td>0.022</td>
+                                <td>52</td>
+                                <td>23</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+    <footer>
+      <div class="jumbotron text-center mt-5 mb-0 bg-main">
+        <p><small>20.2.2) 텐서플로우를 활용한 대기질 예측 정보제공 사이트.<br/>※실시간 관측자료는 측정소 현지 사정이나 데이터 수신에 따라 미제공될 수 있습니다.<br/>by <span class="text-info">이상찬,차민규,이도연,정윤진</span></small></p>
+      </div>
+    </footer>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="js/weather.js" type="text/javascript"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="plugins/common/common.min.js"></script>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/e0de2813f8.js" crossorigin="anonymous"></script>
+    <!-- sparkline.js -->
+    <script src="plugins/jquery.sparkline/jquery.sparkline.min.js"></script>
+    <!-- chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
+    <!--  flot-chart js -->
+    <script src="plugins/flot/js/jquery.flot.min.js"></script>
+    <script src="plugins/flot/js/jquery.flot.pie.js"></script>
+    <script src="plugins/flot/js/jquery.flot.resize.js"></script>
+    <script src="plugins/flot/js/jquery.flot.spline.js"></script>
+    <script src="plugins/flot/js/jquery.flot.init.js"></script>
+    <!-- javascript -->
+    <script src="js/madejs.js"></script>
+    <!-- kakao map api -->
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cd3922e043ddbca97912545923ecfcc&libraries=services,clusterer,drawing"></script>
+    <script>
+    // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+    var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    // 지도를 생성합니다
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 장소 검색 객체를 생성합니다
+    var ps = new kakao.maps.services.Places();
+
+    // 키워드로 장소를 검색합니다
+    ps.keywordSearch('이태원 맛집', placesSearchCB);
+
+    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+    function placesSearchCB (data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // LatLngBounds 객체에 좌표를 추가합니다
+            var bounds = new kakao.maps.LatLngBounds();
+
+            for (var i=0; i<data.length; i++) {
+                displayMarker(data[i]);
+                bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+            }
+
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+            map.setBounds(bounds);
+        }
+    }
+
+    // 지도에 마커를 표시하는 함수입니다
+    function displayMarker(place) {
+
+        // 마커를 생성하고 지도에 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(place.y, place.x)
+        });
+
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+            infowindow.open(map, marker);
+        });
+    }
+    var multipleLineChart = document.getElementById('multipleLineChart').getContext('2d');
+
+    var myMultipleLineChart = new Chart(multipleLineChart, {
+    	type: 'line',
+    	data: {
+    		labels: ["1/1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7", "1/8", "1/9", "1/10", "1/11", "1/12"],
+    		datasets: [{
+    			label: "PM10",
+    			borderColor: "#1d7af3",
+    			pointBorderColor: "#FFF",
+    			pointBackgroundColor: "#1d7af3",
+    			pointBorderWidth: 2,
+    			pointHoverRadius: 4,
+    			pointHoverBorderWidth: 1,
+    			pointRadius: 4,
+    			backgroundColor: 'transparent',
+    			fill: true,
+    			borderWidth: 2,
+    			data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256]
+    		},{
+    			label: "PM2.5",
+    			borderColor: "#59d05d",
+    			pointBorderColor: "#FFF",
+    			pointBackgroundColor: "#59d05d",
+    			pointBorderWidth: 2,
+    			pointHoverRadius: 4,
+    			pointHoverBorderWidth: 1,
+    			pointRadius: 4,
+    			backgroundColor: 'transparent',
+    			fill: true,
+    			borderWidth: 2,
+    			data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
+    		}, {
+    			label: "ppm",
+    			borderColor: "#f3545d",
+    			pointBorderColor: "#FFF",
+    			pointBackgroundColor: "#f3545d",
+    			pointBorderWidth: 2,
+    			pointHoverRadius: 4,
+    			pointHoverBorderWidth: 1,
+    			pointRadius: 4,
+    			backgroundColor: 'transparent',
+    			fill: true,
+    			borderWidth: 2,
+    			data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
+    		}]
+    	},
+    	options : {
+    		responsive: true,
+    		maintainAspectRatio: false,
+    		legend: {
+    			position: 'top',
+    		},
+    		tooltips: {
+    			bodySpacing: 4,
+    			mode:"nearest",
+    			intersect: 0,
+    			position:"nearest",
+    			xPadding:10,
+    			yPadding:10,
+    			caretPadding:10
+    		},
+    		layout:{
+    			padding:{left:15,right:15,top:15,bottom:15}
+    		}
+    	}
+    });
+    </script>
+  </body>
+</html>
