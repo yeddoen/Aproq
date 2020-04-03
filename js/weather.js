@@ -18,8 +18,8 @@ let weatherIcon = {
   '09n' : 'wi wi-night-alt-showers',
   '10n' : 'wi wi-night-alt-rain',
   '11n' : 'wi wi-night-alt-lightning',
-  '13n' : 'wi wi wi-night-alt-snow',
-  '50n' : 'wi wi-night-fog'
+  '13n' : 'wi wi-night-alt-snow',
+  '50n' : 'w1 w1-night-fog'
 };
 let weatherDescription = {
   '200' : '약한 비를 동반한 천둥번개',
@@ -101,6 +101,7 @@ let currentCity = {
 }
 var $LatitudeData=37.553828; //초기값 서울역
 var $LongitudeData=126.969652;
+
 $.ajax({
   url: "https://api.openweathermap.org/data/2.5/weather?APPID=19cf2b4d24f78ab577061da24b4c9a2d&units=metric&lat="+$LatitudeData+'&lon='+$LongitudeData+" ",
   dataType: 'json',
@@ -110,7 +111,7 @@ $.ajax({
     var $Temp = Math.floor(data.main.temp) + '℃';
     var $City = data.name;
     var $Description = data.weather[0].id;
-    $('.CurrIcon').append('<i class="' + weatherIcon[$Icon] + '"></i>');
+    $('.CurrIcon').prepend('<i class="' + weatherIcon[$Icon] + '"></i>');
     $('.CurrTemp').prepend($Temp);
     $('.CurrCity').append(currentCity[$City]);
     $('.CurrDescription').append(weatherDescription[$Description]);
@@ -125,8 +126,8 @@ function getLocation() {
   }
 }
 function showPosition(position) {
-  $LatitudeData = position.coords.latitude;
-  $LongitudeData = position.coords.longitude;
+  $LatitudeData=position.coords.latitude;
+  $LongitudeData=position.coords.longitude;
 
   $.ajax({
     url: "https://api.openweathermap.org/data/2.5/weather?APPID=19cf2b4d24f78ab577061da24b4c9a2d&units=metric&lat="+$LatitudeData+'&lon='+$LongitudeData+" ",
@@ -135,12 +136,12 @@ function showPosition(position) {
     success: function(data){
       var $Icon = (data.weather[0].icon).substr(0.3);
       var $Temp = Math.floor(data.main.temp) + '℃';
-      var $City = data.name;
+      var $city = data.name;
       var $Description = data.weather[0].id;
       $('.CurrIcon').html('<i class="' + weatherIcon[$Icon] + '"></i>');
-      $('.CurrTemp').text($Temp);
-      $('.CurrCity').html(currentCity[$City]||$City);
-      $('.CurrDescription').text(weatherDescription[$Description]);
+      $('.CurrTemp').html($Temp);
+      $('.CurrCity').html(currentCity[$city]||$city);
+      $('.CurrDescription').html(weatherDescription[$Description]);
     }
   })
 }
