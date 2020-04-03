@@ -17,29 +17,21 @@
       <div class="overlay"></div>
         <div class="container">
           <div class="dre row description align-items-center justify-content-center">
-            <div class="col-sm-10 text-left">
-              <div class = 'CurrIcon cIT'></div>
-              <div class = 'CurrTemp cIT'></div>
-              <a href="#" onclick="getLocation()"><span class="but-gps fas fa-map-marker-alt"></span></a>
-              <div class ="CurrCity ciD"></div>
-              <div class="CurrDescription ciD"></div>
-              </div>
             </div>
           </div>
     </header>
     <nav class="navbar navbar-expand-sm fixed-top navbar-light navbar-right bg-white bg-hd">
-      <!-- <a class="navbar-brand" href="./index.html"> ⓉAQ-P(임시로고) </a> -->
       <span id="dpTime"></span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor02">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="./index.html"> HOME <span class="sr-only">(current)</span></a>
-          </li>
           <li class="nav-item navmy">
-            <a class="nav-link" href="./menu-2.html"> 실시간 정보 </a>
+            <a class="nav-link" href="./index.html"> HOME </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="./menu-2.html"> 실시간 정보 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item navmy">
             <a class="nav-link" href="./menu-3.html"> 예측 정보</a>
@@ -56,60 +48,99 @@
       </article>
       <article class="container pt-1">
         <div class="row">
-          <div class="col-sm-5">
+          <div class="col-sm-3">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body">
-                <!-- <i class="far fa-grin-squint" style="color:blue; font-size: 80px;"></i> -->
-                <i class="fas fa-grin-squint fa-5x" style="color:#0066ff; padding-right:10px;"></i>
-                <!-- <i class="far fa-smile" style="color:green; font-size: 80px;"></i> -->
-                <i class="fas fa-smile fa-5x" style="color:#009933; padding-right:10px;"> </i>
-                <!-- <i class="far fa-frown" style="color:yellow; font-size: 80px;"></i> -->
-                <i class="fas fa-frown fa-5x" style="color:#ffcc00;padding-right:10px;"> </i>
-                <i class="fas fa-dizzy fa-5x" style="color:#ff1a1a"></i>
+                <h4 class="card-title">날씨</h4>
+                <p class="card-text"> ((기온/날씨아이콘/통합대기환경 등급))</p>
+              </div>
+            </div>
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                <h4 class="card-title"> </h4>
+                <p class="card-text"> ((바람/습도/강수량 수치만))</p>
               </div>
             </div>
           </div>
-          <div class="col-sm-7">
+          <div class="col-sm-9 text-center">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body">
-                실시간 대기정보 수치!
+                <h4>(map 전국 측정소 kakao map api)</h4><br/>
+                <div id="map" style="width:750px;height:600px;"></div>
+                <p></p>
+                <!-- <div class="card-body">
+                    <h4 class="card-title"> 실시간 차트(예상)</h4>
+                    <div id="flotRealtime2" class="flot-chart" width="100" height="10"></div>
+                </div> -->
               </div>
             </div>
-          </div>
-        </div>
-      </article>
-      <article class="container pt-4">
-        <div class="card border-primary mb-3" style="max-width: 100rem;">
-          <div class="card-body">
-            <div class="card-title">
-              <h3>예측 데이터</h3>
-            </div><hr/>
-            <div class="row pt-3">
-              <div class="col-sm-6">
-                <div class="card-box">
-                  <h4> O<sub>3</sub> </h4><br/>
-                  <div id="lineChart-1"></div><br/>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="card-box">
-                  <h4> PM<sub>10</sub> </h4><br/>
-                  <div id="lineChart-2"></div><br/>
-                </div>
-              </div>
-            </div>
-            <div class="row pt-3">
-              <div class="col-sm-6">
-                <div class="card-box">
-                  <h4> PM<sub>2.5</sub> </h4><br/>
-                  <div id="lineChart-3"></div><br/>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="card-box">
-                  <h4> CO </h4><br/>
-                  <div id="lineChart-4"></div><br/>
-                </div>
+            <div class="card border-primary mb-3" style="max-width: 100rem;">
+              <div class="card-body">
+                  <h4 class="card-title">(map클릭시)00측정소 세부 정보</h4>
+                  <p>table(일시/아황산가스 농도/일산화탄소/오존/이산화질소/미세먼지/초미세먼지/통합대기환경 수치)</p>
+                  <p class="card-text">측정 종류:SO₂ CO O₃ NO₂ PM10 PM2.5 </p>
+                  <div class="table-responsive">
+                      <table class="table header-border table-striped">
+                          <thead>
+                              <tr>
+                                  <th scope="col">측정 일시</th>
+                                  <th scope="col">아황산가스</th>
+                                  <th scope="col">일산화탄소</th>
+                                  <th scope="col">오존</th>
+                                  <th scope="col">이산화질소</th>
+                                  <th scope="col">pm10</th>
+                                  <th scope="col">pm2.5</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td>2020-04-02 21:00</td>
+                                  <td>0.004</td>
+                                  <td>0.5</td>
+                                  <td>0.046</td>
+                                  <td>0.022</td>
+                                  <td>52</td>
+                                  <td>23</td>
+                              </tr>
+                              <tr>
+                                  <td>2020-04-02 20:00</td>
+                                  <td>0.004</td>
+                                  <td>0.5</td>
+                                  <td>0.046</td>
+                                  <td>0.022</td>
+                                  <td>52</td>
+                                  <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>2020-04-02 19:00</td>
+                                <td>0.004</td>
+                                <td>0.5</td>
+                                <td>0.046</td>
+                                <td>0.022</td>
+                                <td>52</td>
+                                <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>2020-04-02 21:00</td>
+                                <td>0.004</td>
+                                <td>0.5</td>
+                                <td>0.046</td>
+                                <td>0.022</td>
+                                <td>52</td>
+                                <td>23</td>
+                              </tr>
+                              <tr>
+                                <td>2020-04-02 21:00</td>
+                                <td>0.004</td>
+                                <td>0.5</td>
+                                <td>0.046</td>
+                                <td>0.022</td>
+                                <td>52</td>
+                                <td>23</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
               </div>
             </div>
           </div>
@@ -118,7 +149,7 @@
     </section>
     <footer>
       <div class="jumbotron text-center mt-5 mb-0 bg-main">
-        <p><small>20.4.1) 텐서플로우를 활용한 대기질 예측 정보제공 사이트.<br/>※실시간 관측자료는 측정소 현지 사정이나 데이터 수신에 따라 미제공될 수 있습니다.<br/>by <span class="text-info">이상찬,차민규,이도연,정윤진</span></small></p>
+        <p><small>20.2.2) 텐서플로우를 활용한 대기질 예측 정보제공 사이트.<br/>※실시간 관측자료는 측정소 현지 사정이나 데이터 수신에 따라 미제공될 수 있습니다.<br/>by <span class="text-info">이상찬,차민규,이도연,정윤진</span></small></p>
       </div>
     </footer>
     <!-- jquery -->
@@ -142,7 +173,120 @@
     <script src="./plugins/flot/js/jquery.flot.init.js"></script>
     <!-- javascript -->
     <script src="./js/madejs.js"></script>
-    <script type="text/javascript">
+    <!-- kakao map api -->
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cd3922e043ddbca97912545923ecfcc&libraries=services,clusterer,drawing"></script>
+    <script>
+    var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
+        center : new kakao.maps.LatLng(35.8683, 127.6358), // 지도의 중심좌표
+        level : 13 // 지도의 확대 레벨
+    });
+
+    // 마커 클러스터러를 생성합니다
+    // 마커 클러스터러를 생성할 때 disableClickZoom 값을 true로 지정하지 않은 경우
+    // 클러스터 마커를 클릭했을 때 클러스터 객체가 포함하는 마커들이 모두 잘 보이도록 지도의 레벨과 영역을 변경합니다
+    // 이 예제에서는 disableClickZoom 값을 true로 설정하여 기본 클릭 동작을 막고
+    // 클러스터 마커를 클릭했을 때 클릭된 클러스터 마커의 위치를 기준으로 지도를 1레벨씩 확대합니다
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 10, // 클러스터 할 최소 지도 레벨
+        disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
+    });
+
+    // 데이터를 가져오기 위해 jQuery를 사용합니다
+    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+    $.get("mapjson/chicken.json", function(data) {
+        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+        var markers = $(data.positions).map(function(i, position) {
+            return new kakao.maps.Marker({
+                position : new kakao.maps.LatLng(position.lat, position.lng)
+            });
+        });
+
+        // 클러스터러에 마커들을 추가합니다
+        clusterer.addMarkers(markers);
+    });
+
+    // 마커 클러스터러에 클릭이벤트를 등록합니다
+    // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
+    // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
+    kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+
+        // 현재 지도 레벨에서 1레벨 확대한 레벨
+        var level = map.getLevel()-1;
+
+        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
+        map.setLevel(level, {anchor: cluster.getCenter()});
+    });
+    //
+    var multipleLineChart = document.getElementById('multipleLineChart').getContext('2d');
+
+    var myMultipleLineChart = new Chart(multipleLineChart, {
+    	type: 'line',
+    	data: {
+    		labels: ["1/1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7", "1/8", "1/9", "1/10", "1/11", "1/12"],
+    		datasets: [{
+    			label: "PM10",
+    			borderColor: "#1d7af3",
+    			pointBorderColor: "#FFF",
+    			pointBackgroundColor: "#1d7af3",
+    			pointBorderWidth: 2,
+    			pointHoverRadius: 4,
+    			pointHoverBorderWidth: 1,
+    			pointRadius: 4,
+    			backgroundColor: 'transparent',
+    			fill: true,
+    			borderWidth: 2,
+    			data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256]
+    		},{
+    			label: "PM2.5",
+    			borderColor: "#59d05d",
+    			pointBorderColor: "#FFF",
+    			pointBackgroundColor: "#59d05d",
+    			pointBorderWidth: 2,
+    			pointHoverRadius: 4,
+    			pointHoverBorderWidth: 1,
+    			pointRadius: 4,
+    			backgroundColor: 'transparent',
+    			fill: true,
+    			borderWidth: 2,
+    			data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
+    		}, {
+    			label: "ppm",
+    			borderColor: "#f3545d",
+    			pointBorderColor: "#FFF",
+    			pointBackgroundColor: "#f3545d",
+    			pointBorderWidth: 2,
+    			pointHoverRadius: 4,
+    			pointHoverBorderWidth: 1,
+    			pointRadius: 4,
+    			backgroundColor: 'transparent',
+    			fill: true,
+    			borderWidth: 2,
+    			data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
+    		}]
+    	},
+    	options : {
+    		responsive: true,
+    		maintainAspectRatio: false,
+    		legend: {
+    			position: 'top',
+    		},
+    		tooltips: {
+    			bodySpacing: 4,
+    			mode:"nearest",
+    			intersect: 0,
+    			position:"nearest",
+    			xPadding:10,
+    			yPadding:10,
+    			caretPadding:10
+    		},
+    		layout:{
+    			padding:{left:15,right:15,top:15,bottom:15}
+    		}
+    	}
+    });
     </script>
   </body>
 </html>
