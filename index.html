@@ -60,13 +60,11 @@
           <div class="col-sm-5">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body">
-                <!-- <i class="far fa-grin-squint" style="color:blue; font-size: 80px;"></i> -->
                 <i class="fas fa-grin-squint fa-5x" style="color:#0066ff; padding-right:10px;"></i>
-                <!-- <i class="far fa-smile" style="color:green; font-size: 80px;"></i> -->
                 <i class="fas fa-smile fa-5x" style="color:#009933; padding-right:10px;"> </i>
-                <!-- <i class="far fa-frown" style="color:yellow; font-size: 80px;"></i> -->
                 <i class="fas fa-frown fa-5x" style="color:#ffcc00;padding-right:10px;"> </i>
                 <i class="fas fa-dizzy fa-5x" style="color:#ff1a1a"></i>
+                <div>날짜:<il id="test"</il></div>
               </div>
             </div>
           </div>
@@ -74,25 +72,15 @@
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body text-center">
                   <div class="table-responsive">
-                      <table class="table table-bordered">
-                          <thead>
-                              <tr>
-                                  <th>PM10</th>
-                                  <th>PM2.5</th>
-                                  <th>O<sub>3</sub></th>
-                                  <th>NO<sub>2</sub></th>
-                                  <th>CO</th>
-                                  <th>SO<sub>2</sub></th>
-                              </tr>
-                          </thead>
+                      <table class="table table-borderless">
                           <tbody>
                               <tr>
-                                  <td><span class="label label-pill label-warning px-2">46</span></td>
-                                  <td><span class="label label-pill label-secondary px-2">12</span> </td>
-                                  <td><span class="label label-pill label-secondary px-2">0.025</span></td>
-                                  <td><span class="label label-pill label-success px-2">0.011</span></td>
-                                  <td><span class="label label-pill label-secondary px-2">0</span></td>
-                                  <td><span class="label label-pill label-secondary px-2">0.006</span></td>
+                                  <td><span class="label label-pill label-warning px-3">PM10</span></td>
+                                  <td><span class="label label-pill label-info px-3">PM2.5</span> </td>
+                                  <td><span class="label label-pill label-info px-3">O₃</span></td>
+                                  <td><span class="label label-pill label-success px-3">NO₂</span></td>
+                                  <td><span class="label label-pill label-info px-3">CO</span></td>
+                                  <td><span class="label label-pill label-info px-3">SO₂</span></td>
                               </tr>
                           </tbody>
                       </table>
@@ -180,7 +168,36 @@
     <script src="./plugins/flot/js/jquery.flot.init.js"></script>
     <!-- javascript -->
     <script src="./js/madejs.js"></script>
-    <script type="text/javascript">
+    <!-- back4app -->
+    <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+    <!-- parse server 사용을 위한 javascript sdk cdn -->
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <script>
+      Parse.serverURL = 'https://parseapi.back4app.com';  //Server URL
+      Parse.initialize(
+        '3UWKUkNz8AG4kUXJkrPS2Mx9PyAH7fsDb6zzzMmm', // Application ID
+        'VlNWxxTAOoN9XMMb7Ie7V9VSkTitDneJA9JrVWei', // Javascript key
+        '0R0NyNF8L4hIwfbBzJE0duPxo6mkSsI73N5LRCRu'  //Master key
+      );
+
+      let MyTest = Parse.Object.extend('past_data'); //past_data의 하위클래스
+      let query = new Parse.Query(MyTest);
+
+      //query.equalTo("date", "2020-04-01 01:00"); //key,value 일치하는거 찾아옴
+      query.limit(1); //데이터 하나로 제한
+      query.addDescending("date"); //날짜 내림차순 정렬
+      query.find().then((results) => {
+        if (typeof document !== 'undefined'){
+          // document.write("날짜:"+results[0].get("date")+", 미세먼지:"+results[0].get("pm10")+", 초미세먼지:"+results[0].get("pm25"));
+          var test1 = `${results[0].get("date")}`; //`${value}`템플릿 리터럴
+          document.getElementById("test").innerHTML = test1;
+        }
+        console.log('ParseObjects found:', results);
+      }, (error) => {
+        if (typeof document !== 'undefined') document.write(`Error while fetching ParseObjects: ${JSON.stringify(error)}`);
+        console.error('Error while fetching ParseObjects', error);
+      });
+      ;
     </script>
   </body>
 </html>
