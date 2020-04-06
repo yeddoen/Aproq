@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
     <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <link href="./css/madecss.css" rel="stylesheet">
  </head>
@@ -71,8 +72,31 @@
           </div>
           <div class="col-sm-7">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
-              <div class="card-body">
-                실시간 대기정보 수치!
+              <div class="card-body text-center">
+                  <div class="table-responsive">
+                      <table class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th>PM10</th>
+                                  <th>PM2.5</th>
+                                  <th>O<sub>3</sub></th>
+                                  <th>NO<sub>2</sub></th>
+                                  <th>CO</th>
+                                  <th>SO<sub>2</sub></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr>
+                                  <td><span class="label label-pill label-warning px-2">46</span></td>
+                                  <td><span class="label label-pill label-secondary px-2">12</span> </td>
+                                  <td><span class="label label-pill label-secondary px-2">0.025</span></td>
+                                  <td><span class="label label-pill label-success px-2">0.011</span></td>
+                                  <td><span class="label label-pill label-secondary px-2">0</span></td>
+                                  <td><span class="label label-pill label-secondary px-2">0.006</span></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
               </div>
             </div>
           </div>
@@ -112,6 +136,20 @@
                 </div>
               </div>
             </div>
+              <!-- <div class="row pt-3">
+              <div class="col-sm-6">
+                <div class="card-box">
+                  <h4> NO<sub>2</sub> </h4><br/>
+                  <div id="lineChart-5"></div><br/>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="card-box">
+                  <h4> SO<sub>2</sub> </h4><br/>
+                  <div id="lineChart-6"></div><br/>
+                </div>
+              </div>
+            </div> -->
           </div>
         </div>
       </article>

@@ -52,6 +52,22 @@ $('#lineChart-4').sparkline([80,60,80,99,100,100,100,102,95,80,75,70,76,86,110,1
   lineColor: '#177dff',
   fillColor: 'rgba(23, 125, 255, 0.2)'
 });
+$('#lineChart-5').sparkline([80,60,80,99,100,100,100,102,95,81,71,70,76,86,110,101], {
+  type: 'line',
+  height: '100',
+  width: '250',
+  lineWidth: '2',
+  lineColor: '#177dff',
+  fillColor: 'rgba(23, 125, 255, 0.2)'
+});
+$('#lineChart-6').sparkline([80,60,80,99,100,100,100,102,95,80,75,71,71,86,110,101], {
+  type: 'line',
+  height: '100',
+  width: '250',
+  lineWidth: '2',
+  lineColor: '#177dff',
+  fillColor: 'rgba(23, 125, 255, 0.2)'
+});
 // top button
 $( window ).scroll( function() {
   if ( $( this ).scrollTop() > 200 ) {
