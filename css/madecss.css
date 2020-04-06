@@ -3,9 +3,11 @@
         font-family: '나눔고딕';
         src: url(./font/NanumGothic.ttf) format('truetype');
 }
-@font-face{
-        font-family: '나눔스퀘어라운드 ExtraBold';
-        src: url(./font/NanumSquareRoundEB.ttf) format('truetype');
+@font-face {
+  font-family: 'BMDOHYEON';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
      .bg-main{
          background-color:#003366;}
@@ -17,7 +19,7 @@
       }
       .bg-hd{
         background-size:cover;
-        font-family: '나눔스퀘어라운드 ExtraBold','맑은고딕',sans-serif;
+        font-family: 'BMDOHYEON', '맑은고딕',sans-serif;
         /* text-shadow: 3px 2px 2px white; */
       }
       .active{font-size: 150%;}
@@ -88,5 +90,8 @@
          font-size: 1.8rem;
          color:white;
          text-shadow: 3px 2px 2px #595959;
+       }
+       .currT{
+        font-size:2.5rem;
        }
        .navmy{font-size: 130%;}
