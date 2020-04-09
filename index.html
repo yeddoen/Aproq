@@ -7,11 +7,10 @@
     <title> 대기질 예측 - 텐서플로우를 활용한</title>
     <!-- css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.min.css">
-    <link rel="stylesheet" href="https://bootswatch.com/4/materia/bootstrap.css">
+    <link rel="stylesheet" href="./css/materia.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/madecss.css" rel="stylesheet">
+    <link href="css/madecss.css" rel="stylesheet" type="text/css">
  </head>
   <body>
     <header class="hero-wrap text-center mb-0 bg-hd text-dark" style="background-image: url(./file/cloudback1.gif);" data-stellar-background-ratio="0.5">
@@ -57,34 +56,42 @@
       </article>
       <article class="container pt-1">
         <div class="row">
-          <div class="col-sm-5">
+          <div class="col-sm-4">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
-              <div class="card-body">
-                <i class="fas fa-grin-squint fa-5x" style="color:#0066ff; padding-right:10px;"></i>
-                <i class="fas fa-smile fa-5x" style="color:#009933; padding-right:10px;"> </i>
-                <i class="fas fa-frown fa-5x" style="color:#ffcc00;padding-right:10px;"> </i>
-                <i class="fas fa-dizzy fa-5x" style="color:#ff1a1a"></i>
-                <div>날짜:<il id="test"</il></div>
+              <div class="card-body text-center">
+                <i class="fas fa-grin-squint fa-3x i-great"></i>
+                <i class="fas fa-smile fa-3x i-good"> </i>
+                <i class="fas fa-frown fa-3x i-bad"> </i>
+                <i class="fas fa-dizzy fa-3x i-danger"></i>
+                <br/><br/>
+                <p>대기환경등급:<il id="Cgrade"></il></p>
+                <small><p class="text-left Cdate"></p></small>
               </div>
             </div>
           </div>
-          <div class="col-sm-7">
+          <div class="col-sm-8">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body text-center">
-                  <div class="table-responsive">
-                      <table class="table table-borderless">
-                          <tbody>
-                              <tr>
-                                  <td><span class="label label-pill label-warning px-3">PM10</span></td>
-                                  <td><span class="label label-pill label-info px-3">PM2.5</span> </td>
-                                  <td><span class="label label-pill label-info px-3">O₃</span></td>
-                                  <td><span class="label label-pill label-success px-3">NO₂</span></td>
-                                  <td><span class="label label-pill label-info px-3">CO</span></td>
-                                  <td><span class="label label-pill label-info px-3">SO₂</span></td>
-                              </tr>
-                          </tbody>
-                      </table>
+                  <div class="btnmy">
+                    <button type="button" onclick="showhide(1)" class="btn btn-light" id="btn-10">PM10</button>
+                    <button type="button" onclick="showhide(2)" class="btn btn-light" id="btn-25">PM2.5</button>
+                    <button type="button" onclick="showhide(3)" class="btn btn-light" id="btn-o3">오존</button>
+                    <button type="button" onclick="showhide(4)" class="btn btn-light" id="btn-no2">이산화질소</button>
+                    <button type="button" onclick="showhide(5)" class="btn btn-light" id="btn-co">일산화탄소</button>
+                    <button type="button" onclick="showhide(6)" class="btn btn-light" id="btn-so2">아황산가스</button>
                   </div>
+                  <div id="currD1" style="display:none"><br/>
+                    <canvas id="chart10" width="800" height="200"></canvas></div>
+                  <div id="currD2" style="display:none"><br/>
+                    <canvas id="chart25" width="800" height="200"></canvas></div>
+                  <div id="currD3" style="display:none"><br/>
+                    <canvas id="charto3" width="800" height="200"></canvas></div>
+                  <div id="currD4" style="display:none"><br/>
+                    <canvas id="chartno2" width="800" height="200"></canvas></div>
+                  <div id="currD5" style="display:none"><br/>
+                    <canvas id="chartco" width="800" height="200"></canvas></div>
+                  <div id="currD6" style="display:none"><br/>
+                    <canvas id="chartso2" width="800" height="200"></canvas></div>
               </div>
             </div>
           </div>
@@ -96,55 +103,52 @@
             <div class="card-title">
               <h3>예측 데이터</h3>
             </div><hr/>
-            <div class="row pt-3">
-              <div class="col-sm-6">
+            <div class="row pt-3 text-center">
+              <div class="col-sm-4">
                 <div class="card-box">
-                  <h4> O<sub>3</sub> </h4><br/>
+                  <h4> O<small>3</small> </h4><br/>
                   <div id="lineChart-1"></div><br/>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="card-box">
-                  <h4> PM<sub>10</sub> </h4><br/>
+                  <h4> PM<small>10</small> </h4><br/>
                   <div id="lineChart-2"></div><br/>
                 </div>
               </div>
-            </div>
-            <div class="row pt-3">
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <div class="card-box">
-                  <h4> PM<sub>2.5</sub> </h4><br/>
+                  <h4> PM<small>2.5</small> </h4><br/>
                   <div id="lineChart-3"></div><br/>
                 </div>
               </div>
+            </div>
+            <div class="row pt-3 text-center">
               <div class="col-sm-4">
                 <div class="card-box">
                   <h4> CO </h4><br/>
                   <div id="lineChart-4"></div><br/>
                 </div>
               </div>
-            </div>
-              <!-- <div class="row pt-3">
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <div class="card-box">
-                  <h4> NO<sub>2</sub> </h4><br/>
+                  <h4> SO<small>2</small> </h4><br/>
                   <div id="lineChart-5"></div><br/>
                 </div>
               </div>
               <div class="col-sm-4">
                 <div class="card-box">
-                  <h4> SO<sub>2</sub> </h4><br/>
-                  <div id="lineChart-6"></div><br/>
+                  <h4> NO<small>2</small> </h4><br/>
+                  <div id="lineChart-6"></div>
                 </div>
               </div>
-            </div> -->
           </div>
         </div>
       </article>
     </section>
     <footer>
       <div class="jumbotron text-center mt-5 mb-0 bg-main">
-        <p><small>20.4.1) 텐서플로우를 활용한 대기질 예측 정보제공 사이트.<br/>※실시간 관측자료는 측정소 현지 사정이나 데이터 수신에 따라 미제공될 수 있습니다.<br/>by <span class="text-info">이상찬,차민규,이도연,정윤진</span></small></p>
+        <p><small>텐서플로우를 활용한 대기질 예측 정보제공 사이트.<br/>※실시간 관측자료는 측정소 현지 사정이나 데이터 수신에 따라 지연 및 미제공될 수 있습니다.<br/>by <span class="text-info">이상찬,차민규,이도연,정윤진</span></small></p>
       </div>
     </footer>
     <!-- jquery -->
@@ -159,45 +163,13 @@
     <!-- sparkline.js -->
     <script src="./plugins/jquery.sparkline/jquery.sparkline.min.js"></script>
     <!-- chart.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
-    <!--  flot-chart js -->
-    <script src="./plugins/flot/js/jquery.flot.min.js"></script>
-    <script src="./plugins/flot/js/jquery.flot.pie.js"></script>
-    <script src="./plugins/flot/js/jquery.flot.resize.js"></script>
-    <script src="./plugins/flot/js/jquery.flot.spline.js"></script>
-    <script src="./plugins/flot/js/jquery.flot.init.js"></script>
-    <!-- javascript -->
-    <script src="./js/madejs.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <!-- back4app -->
     <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
     <!-- parse server 사용을 위한 javascript sdk cdn -->
     <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-    <script>
-      Parse.serverURL = 'https://parseapi.back4app.com';  //Server URL
-      Parse.initialize(
-        '3UWKUkNz8AG4kUXJkrPS2Mx9PyAH7fsDb6zzzMmm', // Application ID
-        'VlNWxxTAOoN9XMMb7Ie7V9VSkTitDneJA9JrVWei', // Javascript key
-        '0R0NyNF8L4hIwfbBzJE0duPxo6mkSsI73N5LRCRu'  //Master key
-      );
-
-      let MyTest = Parse.Object.extend('past_data'); //past_data의 하위클래스
-      let query = new Parse.Query(MyTest);
-
-      //query.equalTo("date", "2020-04-01 01:00"); //key,value 일치하는거 찾아옴
-      query.limit(1); //데이터 하나로 제한
-      query.addDescending("date"); //날짜 내림차순 정렬
-      query.find().then((results) => {
-        if (typeof document !== 'undefined'){
-          // document.write("날짜:"+results[0].get("date")+", 미세먼지:"+results[0].get("pm10")+", 초미세먼지:"+results[0].get("pm25"));
-          var test1 = `${results[0].get("date")}`; //`${value}`템플릿 리터럴
-          document.getElementById("test").innerHTML = test1;
-        }
-        console.log('ParseObjects found:', results);
-      }, (error) => {
-        if (typeof document !== 'undefined') document.write(`Error while fetching ParseObjects: ${JSON.stringify(error)}`);
-        console.error('Error while fetching ParseObjects', error);
-      });
-      ;
-    </script>
+    <!-- javascript -->
+    <script src="./js/madejs.js"></script>
+    <script src="./js/crawlhome.js"></script>
   </body>
 </html>

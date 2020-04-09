@@ -19,55 +19,56 @@ function dpTime(){
   }
   document.getElementById("dpTime").innerHTML = ampm + hours + ":" + minutes; }
 
-//sparkline
-$('#lineChart-1').sparkline([102,109,120,99,110,80,87,74,102,109,120,99,110,80,87,74], {
-  type: 'line',
-  height: '100',
-  width: '250',
-  lineWidth: '2',
-  lineColor: '#177dff',
-  fillColor: 'rgba(23, 125, 255, 0.2)'
-});
-$('#lineChart-2').sparkline([100,109,120,99,50,80,100,102,102,102,120,99,110,86,110,120], {
-  type: 'line',
-  height: '100',
-  width: '250',
-  lineWidth: '2',
-  lineColor: '#177dff',
-  fillColor: 'rgba(23, 125, 255, 0.2)'
-});
-$('#lineChart-3').sparkline([100,100,110,60,100,100,70,80,100,130,140], {
-  type: 'line',
-  height: '100',
-  width: '250',
-  lineWidth: '2',
-  lineColor: '#177dff',
-  fillColor: 'rgba(23, 125, 255, 0.2)'
-});
-$('#lineChart-4').sparkline([80,60,80,99,100,100,100,102,95,80,75,70,76,86,110,101], {
-  type: 'line',
-  height: '100',
-  width: '250',
-  lineWidth: '2',
-  lineColor: '#177dff',
-  fillColor: 'rgba(23, 125, 255, 0.2)'
-});
-$('#lineChart-5').sparkline([80,60,80,99,100,100,100,102,95,81,71,70,76,86,110,101], {
-  type: 'line',
-  height: '100',
-  width: '250',
-  lineWidth: '2',
-  lineColor: '#177dff',
-  fillColor: 'rgba(23, 125, 255, 0.2)'
-});
-$('#lineChart-6').sparkline([80,60,80,99,100,100,100,102,95,80,75,71,71,86,110,101], {
-  type: 'line',
-  height: '100',
-  width: '250',
-  lineWidth: '2',
-  lineColor: '#177dff',
-  fillColor: 'rgba(23, 125, 255, 0.2)'
-});
+  //sparkline
+  $('#lineChart-1').sparkline([24,24,24,24 ], {
+    type: 'line',
+    height: '100',
+    width: '250',
+    lineWidth: '2',
+    lineColor: '#177dff',
+    fillColor: 'rgba(23, 125, 255, 0.2)'
+  });
+  $('#lineChart-2').sparkline([100,109,120,99], {
+    type: 'line',
+    height: '100',
+    width: '250',
+    lineWidth: '2',
+    lineColor: '#177dff',
+    fillColor: 'rgba(23, 125, 255, 0.2)'
+  });
+  $('#lineChart-3').sparkline([100,100,110,60,100,100,70,80,100,130,140], {
+    type: 'line',
+    height: '100',
+    width: '150',
+    lineWidth: '2',
+    lineColor: '#177dff',
+    fillColor: 'rgba(23, 125, 255, 0.2)'
+  });
+  $('#lineChart-4').sparkline([80,60,80,99,100,100,100,102,95,80,75,70,76,86,110,101], {
+    type: 'line',
+    height: '100',
+    width: '250',
+    lineWidth: '2',
+    lineColor: '#177dff',
+    fillColor: 'rgba(23, 125, 255, 0.2)'
+  });
+  $('#lineChart-5').sparkline([80,60,80,99,100,100,100,102,95,81,71,70,102,95,81,71,70], {
+    type: 'line',
+    height: '100',
+    width: '250',
+    lineWidth: '2',
+    lineColor: '#177dff',
+    fillColor: 'rgba(23, 125, 255, 0.2)'
+  });
+  $('#lineChart-6').sparkline([100,109,120,99,50,80,100,102,102,102,120,99,110], {
+    type: 'line',
+    height: '100',
+    width: '250',
+    lineWidth: '2',
+    lineColor: '#177dff',
+    fillColor: 'rgba(23, 125, 255, 0.2)'
+  });
+
 // top button
 $( window ).scroll( function() {
   if ( $( this ).scrollTop() > 200 ) {
