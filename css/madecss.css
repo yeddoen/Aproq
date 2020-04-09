@@ -95,3 +95,18 @@
         font-size:2.5rem;
        }
        .navmy{font-size: 130%;}
+       .i-great{
+         color:#eceef8; padding-right:10px;
+       }
+       .i-good{
+         color:#f0f5f1; padding-right:10px;
+       }
+       .i-bad{
+         color:#fef5cd;padding-right:10px;
+       }
+       .i-danger{
+         color:#f9ecec;
+       }
+       .btn{
+         font-weight: bold;
+       }
