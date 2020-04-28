@@ -9,8 +9,7 @@
   font-weight: normal;
   font-style: normal;
 }
-     .bg-main{
-         background-color:#003366;}
+     .bg-main{background-color:#003366;}
       html,body{
         font-family: '나눔고딕','맑은고딕',sans-serif;
         font-size:100%; background-color:#f6f6f6;
@@ -24,28 +23,15 @@
       }
       .active{font-size: 150%;}
       .navbar-brand{
-        font-size: 170%;
-        margin-left: 10px;
+        font-size: 170%; margin-left: 10px;
       }
       .navbar-nav{padding-top: 4px; padding-bottom: 4px;}
        a.top {
-        position: fixed;
-        right: 15px;
-        bottom: 50px;
-        font-size: 50px;
-        display: none;
+        position: fixed; right: 15px; bottom: 50px; font-size: 50px; display: none;
        }
-       a.top:hover{
-        color:white;
-       }
+       a.top:hover{color:white;}
        .overlay{
-         position: absolute;
-         top: 0;
-         bottom: 0;
-         left: 0;
-         right: 0;
-         content: '';
-         opacity: 1;
+         position: absolute; top: 0; bottom: 0; left: 0; right: 0; content: ''; opacity: 1;
          background: rgba(255, 255, 255, 0);
          background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, #f6f6f6 100%);
          background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0)), color-stop(100%, #f6f6f6));
@@ -57,56 +43,57 @@
          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6', GradientType=0 );
          }
       .hero-wrap {
-        width: 100%;
-        position: relative;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: top center;
-        height: 500px;
+        width: 100%; position: relative; background-size: cover;background-repeat: no-repeat;
+        background-position: top center; height: 500px;
       }
        .CurrIcon, .CurrTemp{
-         display: inline-block;
-         text-align: center;
+         display: inline-block; text-align: center;
        }
        .CurrIcon{
          margin-right: 2px;
        }
        #dpTime{
-         font-size: 200%;
-         margin-right: 20px;
-         font-weight: bold;
+         font-size: 200%;margin-right: 20px;font-weight: bold;
        }
        .cIT{
-         padding-top:200px;
-         font-size:2.5rem;
-         z-index: 4;
+         padding-top:200px;font-size:2.5rem;z-index: 4;
        }
        .ciD{
-         font-size:2rem;
-         z-index: 4;
+         font-size:2rem;z-index: 4;
+       }
+       .Maincity{
+         padding-top:180px;font-size:2rem; z-index: 4;
        }
        .but-gps{
-         margin-left: 5px;
-         font-size: 1.8rem;
-         color:white;
-         text-shadow: 3px 2px 2px #595959;
+         margin-left: 5px; font-size: 1.8rem; color:white; text-shadow: 3px 2px 2px #595959;
        }
        .currT{
         font-size:2.5rem;
        }
        .navmy{font-size: 130%;}
-       .i-great{
-         color:#eceef8; padding-right:10px;
-       }
-       .i-good{
-         color:#f0f5f1; padding-right:10px;
-       }
-       .i-bad{
-         color:#fef5cd;padding-right:10px;
-       }
-       .i-danger{
-         color:#f9ecec;
+       #i-grade{
+         height: auto; width: inherit; max-width:100%;
        }
        .btn{
          font-weight: bold;
        }
+       .modalmy{
+         width: 100%; font-weight: normal;
+       }
+       .i-icons{
+         height: 25px;
+       }
+       #Cwind{display:inline-block;font-size: 1.4rem;z-index: 4;}
+       .i-wind{display: inline-block; font-size: 24px;z-index: 4; padding: 3px;}
+       #Ctemp,#Crain,#Chum{font-size: 1.4rem;z-index: 4;}
+       #hum-img{
+         display: inline-block; height: auto; width: 23px;z-index: 4; padding-bottom: 10px;
+       }
+       #Chumidity{display:inline-block;z-index: 4; font-size: 1.1rem;}
+       .selectbtn-info{background: #1a56ff; color: #fff; border-color: #1a56ff; box-shadow: none;}
+       .selectbtn-success{background: #47ce47; color: #fff; border-color: #47ce47; box-shadow: none;}
+       .selectbtn-warning{background: #ee8227; color: #fff; border-color: #ee8227; box-shadow: none;}
+       .selectbtn-danger{background: #ff2b2b; color: #fff; border-color: #ff2b2b; box-shadow: none;}
+       #total-table{font-size: 13px; }
+       #total-table:hover tbody tr:hover td{ background: #ffe066; color: black;}
+       th{font-size: 14px;}
