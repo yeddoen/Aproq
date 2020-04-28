@@ -12,12 +12,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
     <link href="./css/style.css" rel="stylesheet">
     <link href="./css/madecss.css" rel="stylesheet">
+    <link href="./plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">
  </head>
   <body>
     <header class="hero-wrap text-center mb-0 bg-hd text-dark" style="background-image: url(./file/cloudback1.gif);" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
         <div class="container">
           <div class="dre row description align-items-center justify-content-center">
+            <div class="col-sm-10 text-left">
+              <div class = 'CurrIcon cIT'></div>
+              <div class = 'CurrTemp cIT'></div>
+              <a href="#" onclick="getLocation()"><span class="but-gps fas fa-map-marker-alt"></span></a>
+              <div class ="CurrCity ciD"></div>
+              <div class="CurrDescription ciD"></div>
+              </div>
             </div>
           </div>
     </header>
@@ -52,33 +60,46 @@
           <div class="col-sm-3">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body rounded bg-info border-primary">
-                <div class="input-group icons">
-                    <input type="search" class="form-control" placeholder="지역 찾기" aria-label="지역 찾기">
-                    <button class="btn btn-secondary my-1 my-sm-0" type="submit"><i class="fas fa-search-location"></i></button>
-                    <div class="drop-down d-md-none">
-                      <form action="#">
-                        <input type="text" class="form-control" placeholder="Search">
-                      </form>
+                <div class="bootstrap-modal">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-light modalmy" data-toggle="modal" data-target="#basicModal">지역 검색하기 &nbsp;<i class="fas fa-search-location"></i></button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="basicModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">지역 검색하기</h5>
+                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">Modal body text goes here.</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light">𝖮𝖪</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body" style="color:white;">
                   <div class = 'CurrIcon currT' style="font-size:3.5rem;"></div>
                   <div class = 'CurrTemp currT' style="font-size:2rem;"></div>
-                  <p class="card-text"> ((기온/날씨아이콘/통합대기환경 등급))</p>
+                  <div class ="CurrCity ciD" style="font-size:1.1rem; color:#99ceff;"></div>
+                  <div class="CurrDescription ciD" style="font-size:1.3rem; color:#99ceff;"></div>
+                  <!-- <p class="card-text"> ((기온/날씨아이콘/통합대기환경 등급))</p> -->
                 </div>
               </div>
             </div>
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body">
                 <h4 class="card-title"> </h4>
-                <p class="card-text"> ((바람/습도/강수량 수치만))</p>
+                <p class="card-text" id="test"> ((바람/습도/강수량 수치만))</p>
               </div>
             </div>
           </div>
           <div class="col-sm-9 text-center">
             <div class="card border-primary mb-3" style="max-width: 100rem;">
               <div class="card-body">
-                <h4>(map 전국 측정소 kakao map api)</h4><br/>
+                <h4>전국 측정소 지도</h4><hr/>
                 <div id="map" style="width:100%;height:600px;"></div>
                 <p></p>
                 <!-- <div class="card-body">
@@ -87,71 +108,37 @@
                 </div> -->
               </div>
             </div>
-            <div class="card border-primary mb-3" style="max-width: 100rem;">
-              <div class="card-body">
-                  <h4 class="card-title">전체 데이터 테이블</h4>
-                  <p>table(일시/아황산가스 농도/일산화탄소/오존/이산화질소/미세먼지/초미세먼지/통합대기환경 수치)</p>
-                  <p class="card-text">측정 종류:SO₂ CO O₃ NO₂ PM10 PM2.5 </p>
+          </div>
+        </div>
+      </article>
+      <article class="container pt-1">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                  <div class="card-title">
+                    <h4>Data Table</h4>
+                    <p><small>강서구 최근 3일 데이터만 제공합니다.</small></p><hr/>
+                  </div>
                   <div class="table-responsive">
-                      <table class="table header-border table-striped">
+                      <table id="total-table" class="table text-center table-hover table-striped table-bordered display" style="width:100%">
                           <thead>
                               <tr>
-                                  <th scope="col">측정 일시</th>
-                                  <th scope="col">아황산가스</th>
-                                  <th scope="col">일산화탄소</th>
-                                  <th scope="col">오존</th>
-                                  <th scope="col">이산화질소</th>
-                                  <th scope="col">pm10</th>
-                                  <th scope="col">pm2.5</th>
+                                  <th>제공시간</th>
+                                  <th>기온</th>
+                                  <th>강수</th>
+                                  <th>풍속</th>
+                                  <th>풍향</th>
+                                  <th>습도</th>
+                                  <th>CAI</th>
+                                  <th>PM<small>10</small></th>
+                                  <th>PM<small>2.5</small></th>
+                                  <th>O<small>3</small></th>
+                                  <th>NO<small>2</small></th>
+                                  <th>CO</th>
+                                  <th>SO<small>2</small></th>
                               </tr>
                           </thead>
-                          <tbody>
-                              <tr>
-                                  <td>2020-04-02 21:00</td>
-                                  <td>0.004</td>
-                                  <td>0.5</td>
-                                  <td>0.046</td>
-                                  <td>0.022</td>
-                                  <td>52</td>
-                                  <td>23</td>
-                              </tr>
-                              <tr>
-                                  <td>2020-04-02 20:00</td>
-                                  <td>0.004</td>
-                                  <td>0.5</td>
-                                  <td>0.046</td>
-                                  <td>0.022</td>
-                                  <td>52</td>
-                                  <td>23</td>
-                              </tr>
-                              <tr>
-                                <td>2020-04-02 19:00</td>
-                                <td>0.004</td>
-                                <td>0.5</td>
-                                <td>0.046</td>
-                                <td>0.022</td>
-                                <td>52</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <td>2020-04-02 21:00</td>
-                                <td>0.004</td>
-                                <td>0.5</td>
-                                <td>0.046</td>
-                                <td>0.022</td>
-                                <td>52</td>
-                                <td>23</td>
-                              </tr>
-                              <tr>
-                                <td>2020-04-02 21:00</td>
-                                <td>0.004</td>
-                                <td>0.5</td>
-                                <td>0.046</td>
-                                <td>0.022</td>
-                                <td>52</td>
-                                <td>23</td>
-                              </tr>
-                          </tbody>
                       </table>
                   </div>
               </div>
@@ -186,119 +173,107 @@
     <script src="./plugins/flot/js/jquery.flot.init.js"></script>
     <!-- javascript -->
     <script src="./js/madejs.js"></script>
+    <!-- Datatable -->
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="./plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+    <!-- back4app -->
+    <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+    <!-- parse server 사용을 위한 javascript sdk cdn -->
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
     <!-- kakao map api -->
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4cd3922e043ddbca97912545923ecfcc&libraries=services,clusterer,drawing"></script>
     <script>
+    //kakaomaps api
     var map = new kakao.maps.Map(document.getElementById('map'), { // 지도를 표시할 div
-        center : new kakao.maps.LatLng(35.8683, 127.6358), // 지도의 중심좌표
+        center : new kakao.maps.LatLng(35.9683, 127.6358), // 지도의 중심좌표
         level : 13 // 지도의 확대 레벨
     });
 
-    // 마커 클러스터러를 생성합니다
-    // 마커 클러스터러를 생성할 때 disableClickZoom 값을 true로 지정하지 않은 경우
-    // 클러스터 마커를 클릭했을 때 클러스터 객체가 포함하는 마커들이 모두 잘 보이도록 지도의 레벨과 영역을 변경합니다
-    // 이 예제에서는 disableClickZoom 값을 true로 설정하여 기본 클릭 동작을 막고
-    // 클러스터 마커를 클릭했을 때 클릭된 클러스터 마커의 위치를 기준으로 지도를 1레벨씩 확대합니다
-    var clusterer = new kakao.maps.MarkerClusterer({
-        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-        minLevel: 10, // 클러스터 할 최소 지도 레벨
-        disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
-    });
-
-    // 데이터를 가져오기 위해 jQuery를 사용합니다
-    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-    $.get("mapjson/chicken.json", function(data) {
-        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-        var markers = $(data.positions).map(function(i, position) {
+    $.get("mapjson/index.json", function(data) {
+        var markers = $(data.list).map(function(i, list) {
             return new kakao.maps.Marker({
-                position : new kakao.maps.LatLng(position.lat, position.lng)
+              map :map,
+              disableClickZoom: true,
+              position : new kakao.maps.LatLng(list.dmX, list.dmY),
+              image: new kakao.maps.MarkerImage('./file/checklist.png', new kakao.maps.Size(25, 25))
             });
         });
-
-        // 클러스터러에 마커들을 추가합니다
-        clusterer.addMarkers(markers);
+        // kakao.maps.event.addListener(markers, 'click', function() {
+        //     // 현재 지도 레벨에서 1레벨 확대한 레벨
+        //         var level = map.getLevel()-1;
+        //         map.setLevel(level, {anchor: map.getCenter()});
+        // });
     });
+    //parse-server
+    Parse.serverURL = 'https://parseapi.back4app.com';  //Server URL
+    Parse.initialize(
+      '3UWKUkNz8AG4kUXJkrPS2Mx9PyAH7fsDb6zzzMmm', // Application ID
+      'VlNWxxTAOoN9XMMb7Ie7V9VSkTitDneJA9JrVWei', // Javascript key
+      '0R0NyNF8L4hIwfbBzJE0duPxo6mkSsI73N5LRCRu'  //Master key
+    );
 
-    // 마커 클러스터러에 클릭이벤트를 등록합니다
-    // 마커 클러스터러를 생성할 때 disableClickZoom을 true로 설정하지 않은 경우
-    // 이벤트 헨들러로 cluster 객체가 넘어오지 않을 수도 있습니다
-    kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+    let MyCurrData = Parse.Object.extend('crawl_data'); //past_data의 하위클래스
+    let query = new Parse.Query(MyCurrData);
 
-        // 현재 지도 레벨에서 1레벨 확대한 레벨
-        var level = map.getLevel()-1;
-
-        // 지도를 클릭된 클러스터의 마커의 위치를 기준으로 확대합니다
-        map.setLevel(level, {anchor: cluster.getCenter()});
-    });
-    //
-    var multipleLineChart = document.getElementById('multipleLineChart').getContext('2d');
-
-    var myMultipleLineChart = new Chart(multipleLineChart, {
-    	type: 'line',
-    	data: {
-    		labels: ["1/1", "1/2", "1/3", "1/4", "1/5", "1/6", "1/7", "1/8", "1/9", "1/10", "1/11", "1/12"],
-    		datasets: [{
-    			label: "PM10",
-    			borderColor: "#1d7af3",
-    			pointBorderColor: "#FFF",
-    			pointBackgroundColor: "#1d7af3",
-    			pointBorderWidth: 2,
-    			pointHoverRadius: 4,
-    			pointHoverBorderWidth: 1,
-    			pointRadius: 4,
-    			backgroundColor: 'transparent',
-    			fill: true,
-    			borderWidth: 2,
-    			data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256]
-    		},{
-    			label: "PM2.5",
-    			borderColor: "#59d05d",
-    			pointBorderColor: "#FFF",
-    			pointBackgroundColor: "#59d05d",
-    			pointBorderWidth: 2,
-    			pointHoverRadius: 4,
-    			pointHoverBorderWidth: 1,
-    			pointRadius: 4,
-    			backgroundColor: 'transparent',
-    			fill: true,
-    			borderWidth: 2,
-    			data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
-    		}, {
-    			label: "ppm",
-    			borderColor: "#f3545d",
-    			pointBorderColor: "#FFF",
-    			pointBackgroundColor: "#f3545d",
-    			pointBorderWidth: 2,
-    			pointHoverRadius: 4,
-    			pointHoverBorderWidth: 1,
-    			pointRadius: 4,
-    			backgroundColor: 'transparent',
-    			fill: true,
-    			borderWidth: 2,
-    			data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
-    		}]
-    	},
-    	options : {
-    		responsive: true,
-    		maintainAspectRatio: false,
-    		legend: {
-    			position: 'top',
-    		},
-    		tooltips: {
-    			bodySpacing: 4,
-    			mode:"nearest",
-    			intersect: 0,
-    			position:"nearest",
-    			xPadding:10,
-    			yPadding:10,
-    			caretPadding:10
-    		},
-    		layout:{
-    			padding:{left:15,right:15,top:15,bottom:15}
-    		}
-    	}
+    //query.equalTo("date", "2020-04-01 01:00"); //key,value 일치하는거 찾아옴
+    query.limit(72);
+    query.addDescending("date"); //날짜 내림차순 정렬
+    query.find().then((results) => {
+      if (typeof document !== 'undefined'){
+        //dataTable
+        var testList = new Array();
+        for (var i = 0; i < results.length; i++) {
+          var data = new Array();
+          data.push(`${results[i].get("date")}`);
+          data.push(`${results[i].get("tem")}`);
+          data.push(`${results[i].get("rain")}`);
+          data.push(`${results[i].get("win_f")}`);
+          data.push(`${results[i].get("win_d")}`);
+          data.push(`${results[i].get("hum")}`);
+          data.push(`${results[i].get("grade")}`);
+          data.push(`${results[i].get("pm10")}`);
+          data.push(`${results[i].get("pm25")}`);
+          data.push(`${results[i].get("o3")}`);
+          data.push(`${results[i].get("no2")}`);
+          data.push(`${results[i].get("co")}`);
+          data.push(`${results[i].get("so2")}`);
+          testList.push(data);
+        }
+        $(function(){
+          $('#total-table').DataTable({
+            data: testList,
+            "language": {
+                "emptyTable": "데이터가 없어요.",
+                "lengthMenu": " _MENU_개",
+                "info": "현재 _START_ - _END_ / _TOTAL_건",
+                "infoEmpty": "데이터 0",
+                "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                "search": "검색: ",
+                "zeroRecords": "일치하는 데이터가 없어요.",
+                "loadingRecords": "로딩중...",
+                "processing":     "잠시만 기다려 주세요...",
+                "paginate": {
+                    "next": "다음",
+                    "previous": "이전"
+                }
+            },
+            "order": [[0,"desc"]],
+            "columnDefs": [{
+                "targets": '_all',
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    $(td).css('padding-left', '1px');
+                    $(td).css('padding-right', '1px');
+                    $(td).css('padding-top', '15px');
+                    $(td).css('padding-bottom', '15px');
+                }
+            }],
+          });
+        });
+      }
+      console.log('ParseObjects found:', results);
+    }, (error) => {
+      if (typeof document !== 'undefined') document.write(`Error while fetching ParseObjects: ${JSON.stringify(error)}`);
+      console.error('Error while fetching ParseObjects', error);
     });
     </script>
   </body>
