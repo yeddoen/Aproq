@@ -9,52 +9,114 @@ let MyCurrData = Parse.Object.extend('crawl_data'); //past_data의 하위클래�
 let query = new Parse.Query(MyCurrData);
 
 //query.equalTo("date", "2020-04-01 01:00"); //key,value 일치하는거 찾아옴
-query.limit(8); //최근 6시간 [0]이 가장 최신
+query.limit(8); //최근 8시간 [0]이 가장 최신
 query.addDescending("date"); //날짜 내림차순 정렬
 query.find().then((results) => {
   if (typeof document !== 'undefined'){
+    //crawl_weather
+    var currtem = `${results[0].get("tem")}`,currhum = `${results[0].get("hum")}`,currWD = `${results[0].get("win_d")}`,
+    currWF = `${results[0].get("win_f")}`, currwind="",currrain = `${results[0].get("rain")}`;
+    document.getElementById("Ctemp").innerHTML = "현재기온 "+currtem+"℃"; //기온
+    document.getElementById("Crain").innerHTML = "강수 "+currrain+"%";
+    if (0<=currWD && currWD<45) {
+      currwind = "북풍 ";
+      $('.i-wind').css({
+        transform: "rotate(180deg)"
+      });
+    }else if (45<=currWD && currWD<90) {
+      currwind = "북동풍 ";
+      $('.i-wind').css({
+        transform: "rotate(225deg)"
+      });
+    }else if (90<=currWD && currWD<135) {
+      currwind = "동풍 ";
+      $('.i-wind').css({
+        transform: "rotate(270deg)"
+      });
+    }else if (135<=currWD && currWD<180) {
+      currwind = "남동풍 ";
+      $('.i-wind').css({
+        transform: "rotate(315deg)"
+      });
+    }else if (180<=currWD && currWD<225) {
+      currwind = "남풍 ";
+      $('.i-wind').css({
+        transform: "rotate(0deg)"
+      });
+    }else if (225<=currWD && currWD<270) {
+      currwind = "남서풍 ";
+      $('.i-wind').css({
+        transform: "rotate(45deg)"
+      });
+    }else if (270<=currWD && currWD<315) {
+      currwind = "서풍 ";
+      $('.i-wind').css({
+        transform: "rotate(90deg)"
+      });
+    }else if (315<=currWD && currWD<360) {
+      currwind = "북서풍 ";
+      $('.i-wind').css({
+        transform: "rotate(135deg)"
+      });
+    }else if (360<=currWD) {
+      currwind = "북풍 ";
+      $('.i-wind').css({
+        transform: "rotate(180deg)"
+      });
+    }
+    currwind += currWF;
+    document.getElementById("Cwind").innerHTML = currwind+"m/s";  //바람
+    if (currhum<=0) { //습도
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (1<=currhum && currhum<=9) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/1~9.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (10<=currhum && currhum<=20) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/10~20.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (21<=currhum && currhum<=35) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/21~35.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (36<=currhum && currhum<=49) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/36~49.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (50<=currhum && currhum<=60) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/50~60.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (61<=currhum && currhum<=75) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/61~75.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (76<=currhum && currhum<=85) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/76~85.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (86<=currhum && currhum<=95) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/86~95.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }else if (100<=currhum) {
+      document.getElementById("hum-img").src="./icons/made-icons/dropicon/100.png";
+      document.getElementById("Chumidity").innerHTML = currhum;
+    }
     // document.write("날짜:"+results[0].get("date")+", 미세먼지:"+results[0].get("pm10")+", 초미세먼지:"+results[0].get("pm25"));
     var currGrade = `${results[0].get("grade")}`; //`${value}`템플릿 리터럴
-    currGrade = currGrade.replace("['","");
-    currGrade = currGrade.replace("']","");
+    currGrade = currGrade.replace("['",""); currGrade = currGrade.replace("']","");
     var currDate = `${results[0].get("date")}`;
     currDate = currDate.substring(5,currDate.length-2);
-    currDate = currDate.replace(":","시");
-    currDate = currDate.replace(".","월");
-    currDate = currDate.replace(" ","일 ");
+    currDate = currDate.replace(":","시"); currDate = currDate.replace(".","월"); currDate = currDate.replace(" ","일 ");
     var classdate = document.getElementsByClassName("Cdate")
     for (var i = 0; i < classdate.length; i++) {
-      classdate[i].innerHTML = "["+currDate+"]";
+      classdate[i].innerHTML = "&nbsp;[제공 : 강서구 "+currDate+"]";
     }
-    var currPM10 = `${results[0].get("pm10")}`,
-    currPM25 = `${results[0].get("pm25")}`,
-    currO3 = `${results[0].get("o3")}`,
-    currNO2 = `${results[0].get("no2")}`,
-    currCO = `${results[0].get("co")}`,
-    currSO2 = `${results[0].get("so2")}`;
-
-    document.getElementById("Cgrade").innerHTML = currGrade;
+    var currPM10 = `${results[0].get("pm10")}`,currPM25 = `${results[0].get("pm25")}`,currO3 = `${results[0].get("o3")}`,
+    currNO2 = `${results[0].get("no2")}`,currCO = `${results[0].get("co")}`,currSO2 = `${results[0].get("so2")}`;
     //AQIgrade
     if(currGrade == "좋음"){
-      $('.i-great').css({
-        color: "##2A6BF6",
-        fontSize: "90px"
-      });
+      document.getElementById("i-grade").src="./file/grade/좋음.png";
     }else if (currGrade == "보통") {
-      $('.i-good').css({
-        color: "#33cc33",
-        fontSize: "90px"
-      });
+      document.getElementById("i-grade").src="./file/grade/보통.png";
     }else if (currGrade == "나쁨") {
-      $('.i-bad').css({
-        color: "#eb862c",
-        fontSize: "90px"
-      });
+      document.getElementById("i-grade").src="./file/grade/나쁨.png";
     }else if (currGrade == "매우나쁨") {
-      $('.i-danger').css({
-        color: "#fd3535",
-        fontSize: "90px"
-      });
+      document.getElementById("i-grade").src="./file/grade/매우나쁨.png";
     }else {
       document.getElementById("Cgrade").innerHTML = "현재 등급을 표시할 수 없습니다.";
     }
@@ -212,6 +274,9 @@ query.find().then((results) => {
                 }
             }],
             yAxes: [{
+              ticks : {
+                    min : 0
+                  },
               gridLines: {
                 display: false,
                 drawBorder: false
@@ -241,7 +306,7 @@ query.find().then((results) => {
         data: {
             labels: [times[7], times[6], times[5], times[4], times[3], times[2], times[1], times[0]],
             datasets: [{
-                label: 'PM25 ',
+                label: 'PM2.5 ',
                 backgroundColor: [color25[7],color25[6],color25[5],color25[4],color25[3],color25[2],color25[1],color25[0]],
                 borderColor: 'transparent',
                 barThickness: 1,
@@ -261,6 +326,9 @@ query.find().then((results) => {
                 }
             }],
             yAxes: [{
+              ticks : {
+                    min : 0
+                  },
               gridLines: {
                 display: false,
                 drawBorder: false
@@ -310,6 +378,9 @@ query.find().then((results) => {
                 }
             }],
             yAxes: [{
+              ticks : {
+                    min : 0
+                  },
               gridLines: {
                 display: false,
                 drawBorder: false
@@ -359,6 +430,9 @@ query.find().then((results) => {
                 }
             }],
             yAxes: [{
+              ticks : {
+                    min : 0
+                  },
               gridLines: {
                 display: false,
                 drawBorder: false
@@ -408,6 +482,9 @@ query.find().then((results) => {
                 }
             }],
             yAxes: [{
+              ticks : {
+                    min : 0
+                  },
               gridLines: {
                 display: false,
                 drawBorder: false
@@ -457,6 +534,9 @@ query.find().then((results) => {
                 }
             }],
             yAxes: [{
+              ticks : {
+                beginAtZero: true,
+                  },
               gridLines: {
                 display: false,
                 drawBorder: false
@@ -473,10 +553,139 @@ query.find().then((results) => {
 });
 
 //
+var select1="",select2="",select3="",select4="",select5="",select6="";
 function showhide(i){
   if(document.all["currD"+i].style.display == "none"){
     document.all["currD"+i].style.display = "block";
+    if (i==1) { //currD1 pm10
+      select1 = document.getElementById("btn-10");
+      if(select1.classList.contains('btn-info')) {
+        select1.classList.add('selectbtn-info');
+      }else if (select1.classList.contains('btn-success')) {
+        select1.classList.add('selectbtn-success');
+      }else if (select1.classList.contains('btn-warning')) {
+        select1.classList.add('selectbtn-warning');
+      }else if (select1.classList.contains('btn-danger')) {
+        select1.classList.add('selectbtn-danger');
+      }
+    }else if (i==2) { //currD2 pm25
+      select2 = document.getElementById("btn-25");
+      if(select2.classList.contains('btn-info')) {
+        select2.classList.add('selectbtn-info');
+      }else if (select2.classList.contains('btn-success')) {
+        select2.classList.add('selectbtn-success');
+      }else if (select2.classList.contains('btn-warning')) {
+        select2.classList.add('selectbtn-warning');
+      }else if (select2.classList.contains('btn-danger')) {
+        select2.classList.add('selectbtn-danger');
+      }
+    }else if (i==3) { //currD3 o3
+      select3 = document.getElementById("btn-o3");
+      if(select3.classList.contains('btn-info')) {
+        select3.classList.add('selectbtn-info');
+      }else if (select3.classList.contains('btn-success')) {
+        select3.classList.add('selectbtn-success');
+      }else if (select3.classList.contains('btn-warning')) {
+        select3.classList.add('selectbtn-warning');
+      }else if (select3.classList.contains('btn-danger')) {
+        select3.classList.add('selectbtn-danger');
+      }
+    }else if (i==4) { //currD4 no2
+      select4 = document.getElementById("btn-no2");
+      if(select4.classList.contains('btn-info')) {
+        select4.classList.add('selectbtn-info');
+      }else if (select4.classList.contains('btn-success')) {
+        select4.classList.add('selectbtn-success');
+      }else if (select4.classList.contains('btn-warning')) {
+        select4.classList.add('selectbtn-warning');
+      }else if (select4.classList.contains('btn-danger')) {
+        select4.classList.add('selectbtn-danger');
+      }
+    }else if (i==5) { //currD5 co
+      select5 = document.getElementById("btn-co");
+      if(select5.classList.contains('btn-info')) {
+        select5.classList.add('selectbtn-info');
+      }else if (select5.classList.contains('btn-success')) {
+        select5.classList.add('selectbtn-success');
+      }else if (select5.classList.contains('btn-warning')) {
+        select5.classList.add('selectbtn-warning');
+      }else if (select5.classList.contains('btn-danger')) {
+        select5.classList.add('selectbtn-danger');
+      }
+    }else if (i==6) { //currD6 so2
+      select6 = document.getElementById("btn-so2");
+      if(select6.classList.contains('btn-info')) {
+        select6.classList.add('selectbtn-info');
+      }else if (select6.classList.contains('btn-success')) {
+        select6.classList.add('selectbtn-success');
+      }else if (select6.classList.contains('btn-warning')) {
+        select6.classList.add('selectbtn-warning');
+      }else if (select6.classList.contains('btn-danger')) {
+        select6.classList.add('selectbtn-danger');
+      }
+    }
   }else {
     document.all["currD"+i].style.display = "none";
+    if (i==1) { //currD1 pm10
+      if(select1.classList.contains('btn-info')) {
+        select1.classList.remove('selectbtn-info');
+      }else if (select1.classList.contains('btn-success')) {
+        select1.classList.remove('selectbtn-success');
+      }else if (select1.classList.contains('btn-warning')) {
+        select1.classList.remove('selectbtn-warning');
+      }else if (select1.classList.contains('btn-danger')) {
+        select1.classList.remove('selectbtn-danger');
+      }
+    }else if (i==2) { //currD2 pm25
+      if(select2.classList.contains('btn-info')) {
+        select2.classList.remove('selectbtn-info');
+      }else if (select2.classList.contains('btn-success')) {
+        select2.classList.remove('selectbtn-success');
+      }else if (select2.classList.contains('btn-warning')) {
+        select2.classList.remove('selectbtn-warning');
+      }else if (select2.classList.contains('btn-danger')) {
+        select2.classList.remove('selectbtn-danger');
+      }
+    }else if (i==3) { //currD3 o3
+      if(select3.classList.contains('btn-info')) {
+        select3.classList.remove('selectbtn-info');
+      }else if (select3.classList.contains('btn-success')) {
+        select3.classList.remove('selectbtn-success');
+      }else if (select3.classList.contains('btn-warning')) {
+        select3.classList.remove('selectbtn-warning');
+      }else if (select3.classList.contains('btn-danger')) {
+        select3.classList.remove('selectbtn-danger');
+      }
+    }else if (i==4) { //currD4 no2
+      if(select4.classList.contains('btn-info')) {
+        select4.classList.remove('selectbtn-info');
+      }else if (select4.classList.contains('btn-success')) {
+        select4.classList.remove('selectbtn-success');
+      }else if (select4.classList.contains('btn-warning')) {
+        select4.classList.remove('selectbtn-warning');
+      }else if (select4.classList.contains('btn-danger')) {
+        select4.classList.remove('selectbtn-danger');
+      }
+    }else if (i==5) { //currD5 co
+      if(select5.classList.contains('btn-info')) {
+        select5.classList.remove('selectbtn-info');
+      }else if (select5.classList.contains('btn-success')) {
+        select5.classList.remove('selectbtn-success');
+      }else if (select5.classList.contains('btn-warning')) {
+        select5.classList.remove('selectbtn-warning');
+      }else if (select5.classList.contains('btn-danger')) {
+        select5.classList.remove('selectbtn-danger');
+      }
+    }else if (i==6) { //currD6 so2
+      if(select6.classList.contains('btn-info')) {
+        select6.classList.remove('selectbtn-info');
+      }else if (select6.classList.contains('btn-success')) {
+        select6.classList.remove('selectbtn-success');
+      }else if (select6.classList.contains('btn-warning')) {
+        select6.classList.remove('selectbtn-warning');
+      }else if (select6.classList.contains('btn-danger')) {
+        select6.classList.remove('selectbtn-danger');
+      }
+    }
   }
 };
